@@ -4,12 +4,26 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+require('dotenv').config();
+const connectionString = process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString,{useNewUrlParser: true, useUnifiedTopology: true});
+
+//Get the default connection
+var db = mongoose.connection;
+//Bind connection to error event
+db.on('error', console.error.bind(console, 'MongoDB connectionerror:'));
+db.once("open", function(){console.log("Connection to DB succeeded")});
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var earphonesRouter = require('./routes/earphones');
 var boardRouter = require('./routes/board');
 var selectorRouter = require('./routes/selector');
+
+var earphones = require("./models/earphones");
+var resourceRouter = require('./routes/resource');
 
 var app = express();
 
@@ -29,6 +43,35 @@ app.use('/users', usersRouter);
 app.use('/earphones', earphonesRouter);
 app.use('/board', boardRouter);
 app.use('/selector', selectorRouter);
+app.use('/resource', resourceRouter);
+
+async function recreateDB(){
+  // Delete everything
+  await earphones.deleteMany();
+  let instance1 = new earphones({earphones_color:"White",earphones_length:"1m",earphones_cost:"$40", earphones_sound:"High"});
+  
+  instance1.save().then( function(err,doc) {
+  if(err) return console.error(err);
+  console.log("First object saved")
+  });
+ 
+ let instance2 = new earphones({earphones_color:"Blue",earphones_length:"5m",earphones_cost:"$50", earphones_sound:"Medium"});
+  
+  instance2.save().then( function(err,doc) {
+  if(err) return console.error(err);
+  console.log("Second object saved")
+  });
+ 
+ let instance3 = new earphones({earphones_color:"Black",earphones_length:"5m",earphones_cost:"$20", earphones_sound:"Low"});
+  
+  instance3.save().then( function(err,doc) {
+  if(err) return console.error(err);
+  console.log("Third object saved")
+  });
+}
+ let reseed = true;
+ if (reseed) { recreateDB();}
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
