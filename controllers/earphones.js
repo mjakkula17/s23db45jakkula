@@ -1,8 +1,18 @@
 var earphones = require('../models/earphones');
-// List of all earphoness
-exports.earphones_list = function(req, res) {
- res.send('NOT IMPLEMENTED: earphones list');
-};
+
+// List of all earphones
+exports.earphones_list = async function(req, res) {
+    try{
+    theearphones = await earphones.find();
+    res.send(theearphones);
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+   };
+
+
 // for a specific earphones.
 exports.earphones_detail = function(req, res) {
  res.send('NOT IMPLEMENTED: earphones detail: ' + req.params.id);
@@ -19,3 +29,14 @@ exports.earphones_delete = function(req, res) {
 exports.earphones_update_put = function(req, res) {
  res.send('NOT IMPLEMENTED: earphones update PUT' + req.params.id);
 };
+
+exports.earphones_view_all_Page = async function(req, res) {
+    try{
+    theearphones = await earphones.find();
+    res.render('earphones', { title: 'earphones Search Results', results: theearphones });
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+   };
