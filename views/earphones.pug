@@ -2,10 +2,10 @@ extends layout
 
 block content
   h1= title
-  - let results = [{earphones_color:"White",earphones_length:"1m",earphones_cost:"$40", earphones_sound:"High"},{earphones_color:"Blue",earphones_length:"5m",earphones_cost:"$50", earphones_sound:"Medium"},{earphones_color:"Black",earphones_length:"5m",earphones_cost:"$20", earphones_sound:"Low"}]
+  - let earphones = results
   div(class="container-fluid")
     div(class="row")
-      each item,index in results
+      each item,index in earphones
         div(class="col-sm-2",onClick=`buy(${index})`)
           p Color is #{item.earphones_color}
           p Length is #{item.earphones_length}
