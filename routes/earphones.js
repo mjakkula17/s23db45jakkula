@@ -11,3 +11,4 @@ var router = express.Router();
 /* GET earphoness */
 router.get('/', earphones_controlers.earphones_view_all_Page );
 module.exports = router;
+
