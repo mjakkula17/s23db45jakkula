@@ -1,4 +1,5 @@
 extends layout
+
 block content
  h1= title
 
@@ -7,7 +8,7 @@ block content
     label.earphonesAttr(for='earphones_color') earphones color
     input#earphones_color(type='text', name='earphones_color')
   div.form-group
-    label.earphonesAttr(for='earphones_length') earphones size
+    label.earphonesAttr(for='earphones_length') earphones length
     input#earphones_length(type='text', name='earphones_length')
   div.form-group
     label.earphonesAttr(for='earphones_cost') earphones cost
@@ -16,6 +17,7 @@ block content
     label.earphonesAttr(for='earphones_sound') earphones sound
     input#earphones_sound(type='text', name='earphones_sound')
   input(type="submit")
+
  script.
   document.forms['earphonesForm'].addEventListener('submit', (event) => {
    event.preventDefault();
