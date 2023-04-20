@@ -1,20 +1,27 @@
 extends layout
 block content
  h1= title
- - let earphones_color = toShow.earphones_color
- - let earphones_length = toShow.earphones_length
- - let earphones_cost = toShow.earphones_cost
- - let earphones_sound = toShow.earphones_sound
- div
-  div.row
-   div(class='earphonesAttr mr-3') earphones color is:
-   div #{earphones_color}
-  div.row
-   div(class='earphonesAttr mr-3') earphones length is:
-   div #{earphones_length}
-  div.row
-   div(class='earphonesAttr mr-3') earphones cost is:
-   div #{earphones_cost}
-  div.row
-   div(class='earphonesAttr mr-3') earphones sound is:
-   div #{earphones_sound}
+ if (toShow == null)
+  h2 No instance to delete
+ else
+  - let earphonesid = toShow._id
+  - let earphones_color = toShow.earphones_color
+  - let earphones_length = toShow.earphones_length
+  - let earphones_cost = toShow.earphones_cost
+  - let earphones_sound = toShow.earphones_sound
+  div
+   div.row
+    div(class='earphonesAttr mr-3') earphones id is:
+    div #{earphonesid}
+   div.row
+    div(class='earphonesAttr mr-3') earphones color is:
+    div #{earphones_color}
+   div.row
+    div(class='earphonesAttr mr-3') earphones length is:
+    div #{earphones_length}
+   div.row
+    div(class='earphonesAttr mr-3') earphones cost is:
+    div #{earphones_cost}
+   div.row
+    div(class='earphonesAttr mr-3') earphones sound is:
+    div #{earphones_sound}
