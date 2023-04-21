@@ -2,19 +2,19 @@ extends layout
 
 block content
   h1= title
-  - let earphones = results
-  div(class="container-fluid")
-    div(class="row")
-      each item,index in earphones
-        div(class="col-sm-2",onClick=`buy(${index})`)
-          p Color is #{item.earphones_color}
-          p Length is #{item.earphones_length}
-          p Cost is #{item.earphones_cost}
-          p Sound is #{item.earphones_sound}
-    //- Bonus Logic
+  - let items = results
+  div(claass="container-fluid mt-3")
+   div(class="row m-1")
+    each item,index in items
+     - let destination = `dispatch(\"/earphones/update?id=${item._id}\")`
+     div(class="col-sm-3 bg-info m-2 p-4" onclick=`buy(${index})`) #{item.earphones_color} - #{item.earphones_length } - #{item.earphones_cost} - #{item.earphones_sound}
+      button.btn( class="btn-primary ml-1", onclick= destination) Update
   script.
-    function buy(itr) {
-      itr = itr+1;
-      alert(`You Purchased Item ${itr}`);
-    }
-    
+   function buy(itemNo)
+   {
+     alert(`You purchased Item ${itemNo+1}`)
+   }
+   function dispatch(path)
+   {
+     window.location.href=path
+   }
