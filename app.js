@@ -60,7 +60,7 @@ app.use(require('express-session')({
   }));
   app.use(passport.initialize());
   app.use(passport.session());
-  
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
@@ -97,6 +97,13 @@ async function recreateDB(){
 }
  let reseed = true;
  if (reseed) { recreateDB();}
+ // passport config
+// Use the existing connection
+// The Account model
+var Account =require('./models/account');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
 
 
 // catch 404 and forward to error handler
